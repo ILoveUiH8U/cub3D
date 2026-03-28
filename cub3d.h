@@ -2,12 +2,14 @@
 # define CUB3D_H
 
 # include <errno.h>
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 # include <mlx.h>
+# include "libft/libft.h"
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
@@ -29,5 +31,38 @@
 # define MASK_KEY_RELEASE 2L
 # define MASK_DESTROY 0L
 
+typedef struct s_cfg
+{
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		floor_color;
+	int		ceil_color;
+	int		has_floor;
+	int		has_ceil;
+}t_cfg;
+
+typedef struct s_map
+{
+	char	**grid;
+	int		height;
+	int		width;
+	int		player_x;
+	int		player_y;
+	char	player_dir;
+}t_map;
+
+typedef struct s_game
+{
+	t_cfg	cfg;
+	t_map	map;
+}t_game;
+
+int		parse_cub_file(const char *path, t_game *game);
+void	init_game(t_game *game);
+void	free_game(t_game *game);
+int		build_and_validate_map(t_game *game, char **lines, int start, int count,
+			char **err_msg);
 
 #endif

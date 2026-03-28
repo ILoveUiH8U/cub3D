@@ -6,7 +6,7 @@ INCLUDES = -I. -Iminilibx-linux -Ilibft
 
 LIBFT = libft/libft.a
 
-SRC = main.c parse.c parse_validate.c utils.c utils2.c
+SRC = main.c fakeparser1.c fakeparser2.c
 OBJ = $(SRC:.c=.o)
 
 LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
