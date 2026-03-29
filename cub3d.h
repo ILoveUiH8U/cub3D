@@ -11,8 +11,8 @@
 # include <mlx.h>
 # include "libft/libft.h"
 
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIDTH 1280
+# define HEIGHT 720
 # define FLOOR_COLOR 0x2E2E2E
 # define CEIL_COLOR 0x4A6274
 # define KEY_ESC 65307
