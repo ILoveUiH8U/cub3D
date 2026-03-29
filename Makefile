@@ -5,8 +5,17 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I. -Iminilibx-linux -Ilibft
 
 LIBFT = libft/libft.a
+MLX = minilibx-linux/libmlx.a
 
-SRC = main.c fakeparser1.c fakeparser2.c
+SRC = main.c \
+	fakeparser1.c \
+	fakeparser2.c \
+	errors.c \
+	utils.c \
+	hooks.c \
+	mlx_init.c \
+	draw.c \
+	render.c
 OBJ = $(SRC:.c=.o)
 
 LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
@@ -14,22 +23,20 @@ LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
 all: $(NAME)
 
 $(LIBFT):
-	make -C libft
+	$(MAKE) -C libft
 
-$(NAME): $(OBJ) $(LIBFT)
-	make -C minilibx-linux
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c cub3d.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	make clean -C minilibx-linux
-	make clean -C libft
+	$(MAKE) clean -C libft
 	rm -f $(OBJ)
 
 fclean: clean
-	make fclean -C libft
+	$(MAKE) fclean -C libft
 	rm -f $(NAME)
 
 re: fclean all
