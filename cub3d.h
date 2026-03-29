@@ -52,28 +52,23 @@ typedef struct s_map
 	int		player_y;
 	char	player_dir;
 }t_map;
+typedef struct s_img
+{
+	void *img;
+	char *addr;
+	int bpp;
+	int line_len;
+	int endian;
+} t_img;
 
 typedef struct s_game
 {
 	t_cfg	cfg;
 	t_map	map;
+	void *mlx;
+	void *win;
+	t_img img;
 }t_game;
-
-typedef struct s_img
-{
-void *img;
-char *addr;
-int bpp;
-int line_len;
-int endian;
-} t_img;
-
-typedef struct s_game
-{
-void *mlx;
-void *win;
-t_img img;
-} t_game;
 
 /* errors */
 void error_exit(char *msg);
@@ -90,13 +85,12 @@ int close_window(void *param);
 void init_mlx(t_game *g);
 
 /* render */
-void render_frame(t_game *g);
+int	render_frame(void *param);
 
 /* draw */
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_vertical_line(t_game *g, int x, int start, int end, int color);
 
-#endif
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
