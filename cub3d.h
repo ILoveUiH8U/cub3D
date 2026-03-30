@@ -102,5 +102,6 @@ void	init_game(t_game *game);
 void	free_game(t_game *game);
 int		build_and_validate_map(t_game *game, char **lines, int start, int count,
 			char **err_msg);
+void	init_player(t_game *game);
 
 #endif
