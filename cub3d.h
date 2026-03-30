@@ -61,6 +61,29 @@ typedef struct s_img
 	int endian;
 } t_img;
 
+typedef struct s_rval
+{
+	double	cam;
+	double	dir_x;
+	double	dir_y;
+	double	ddx;
+	double	ddy;
+	double	sdx;
+	double	sdy;
+	double	pwd;
+}	t_rval;
+
+typedef struct s_ray
+{
+	int		x;
+	int		mx;
+	int		my;
+	int		sx;
+	int		sy;
+	int		side;
+	t_rval	v;
+}	t_ray;
+
 typedef struct s_game
 {
 	t_cfg	cfg;
