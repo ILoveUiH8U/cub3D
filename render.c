@@ -20,22 +20,22 @@ int	render_frame(void *param)
 
 	g = (t_game *)param;
 	y = 0;
-	while (y < HEIGHT/2)
-	{
-		x = 0;
-		while (x < WIDTH/2)
-		{
-			put_pixel(&g->img, x, y, 0x000000);
-			x++;
-		}
-		y++;
-	}
-    while (y < HEIGHT)
+	while (y < HEIGHT / 2)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			put_pixel(&g->img, x, y, 0xFFFFFF);
+			put_pixel(&g->img, x, y, g->cfg.ceil_color);
+			x++;
+		}
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_pixel(&g->img, x, y, g->cfg.floor_color);
 			x++;
 		}
 		y++;
