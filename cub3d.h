@@ -65,8 +65,14 @@ typedef struct s_game
 {
 	t_cfg	cfg;
 	t_map	map;
+	double	pos_x;
+	double	pos_y;
 	void *mlx;
 	void *win;
+	double	dir_x;
+	double	dir_y;
+	double	povx;
+	double	povy;
 	t_img img;
 }t_game;
 
