@@ -70,7 +70,7 @@ typedef struct s_rval
 	double	ddy;
 	double	sdx;
 	double	sdy;
-	double	pwd;
+	double	dist;
 }	t_rval;
 
 typedef struct s_ray

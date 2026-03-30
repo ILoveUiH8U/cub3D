@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 18:00:06 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/30 20:40:12 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/30 20:56:38 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ static void	run_dda(t_game *game, t_ray *ray)
 	}
 }
 
+static void	get_wall_dist(t_ray *ray)
+{
+	if (ray->side == 0)
+		ray->v.dist = ray->v.sdx - ray->v.ddx;
+	else
+		ray->v.dist = ray->v.sdy - ray->v.ddy;
+}
+
 static void	cast_a_ray(t_game *game, int x)
 {
 	t_ray	ray;
@@ -87,6 +95,7 @@ static void	cast_a_ray(t_game *game, int x)
 	init_dda(game, &ray);
 	init_step_and_side(game, &ray);
 	run_dda(game, &ray);
+	get_wall_dist(&ray);
 }
 
 void	cast_rays(t_game *game)
