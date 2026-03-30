@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 16:14:23 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/30 16:43:49 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/30 21:03:05 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int main(int argc, char **argv)
 	if (!parse_cub_file(argv[1], &game))
 		return (1);
 	init_player(&game);
-	ft_putendl_fd("Map parsed successfully", 1);
 	init_mlx(&game);
 	game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp,
