@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:17:32 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/30 18:22:00 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/30 19:43:37 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	render_frame(void *param)
 		}
 		y++;
 	}
+	cast_rays(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img.img, 0, 0);
 	return (0);
 }
