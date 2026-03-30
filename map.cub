@@ -1,7 +1,7 @@
-NO minilibx-linux/test/open.xpm
-SO minilibx-linux/test/open.xpm
-WE minilibx-linux/test/open.xpm
-EA minilibx-linux/test/open.xpm
+NO textures/no.xpm
+SO textures/so.xpm
+WE textures/we.xpm
+EA textures/ea.xpm
 
 F 46,46,46
 C 74,98,116
