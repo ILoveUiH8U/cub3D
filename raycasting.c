@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 18:00:06 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/30 20:21:33 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/30 20:40:12 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,27 @@ static void	init_step_and_side(t_game *game, t_ray *ray)
 	}
 }
 
+static void	run_dda(t_game *game, t_ray *ray)
+{
+	while (1)
+	{
+		if (ray->v.sdx < ray->v.sdy)
+		{
+			ray->v.sdx += ray->v.ddx;
+			ray->mx += ray->sx;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->v.sdy += ray->v.ddy;
+			ray->my += ray->sy;
+			ray->side = 1;
+		}
+		if (game->map.grid[ray->my][ray->mx] == '1')
+			return ;
+	}
+}
+
 static void	cast_a_ray(t_game *game, int x)
 {
 	t_ray	ray;
@@ -65,6 +86,7 @@ static void	cast_a_ray(t_game *game, int x)
 	init_ray(game, &ray, x);
 	init_dda(game, &ray);
 	init_step_and_side(game, &ray);
+	run_dda(game, &ray);
 }
 
 void	cast_rays(t_game *game)
