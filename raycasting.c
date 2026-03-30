@@ -87,6 +87,29 @@ static void	get_wall_dist(t_ray *ray)
 		ray->v.dist = ray->v.sdy - ray->v.ddy;
 }
 
+static void	draw_wall(t_game *game, t_ray *ray)
+{
+	int	h;
+	int	start;
+	int	end;
+	int	color;
+
+	if (ray->v.dist <= 0.0)
+		return ;
+	h = (int)(HEIGHT / ray->v.dist);
+	start = -h / 2 + HEIGHT / 2;
+	end = h / 2 + HEIGHT / 2;
+	if (start < 0)
+		start = 0;
+	if (end >= HEIGHT)
+		end = HEIGHT - 1;
+	if (ray->side == 0)
+		color = 0x00CCFF;
+	else
+		color = 0x0077AA;
+	draw_vertical_line(game, ray->x, start, end, color);
+}
+
 static void	cast_a_ray(t_game *game, int x)
 {
 	t_ray	ray;
@@ -96,6 +119,7 @@ static void	cast_a_ray(t_game *game, int x)
 	init_step_and_side(game, &ray);
 	run_dda(game, &ray);
 	get_wall_dist(&ray);
+	draw_wall(game, &ray);
 }
 
 void	cast_rays(t_game *game)
