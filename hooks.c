@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/31 21:12:15 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/31 21:14:22 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,14 @@ int	key_press(int keycode, void *param)
 	if (keycode == KEY_ESC)
 		close_window(g);
 	set_key(g, keycode, 1);
+	return (0);
+}
+
+int	key_release(int keycode, void *param)
+{
+	t_game	*g;
+
+	g = (t_game *)param;
+	set_key(g, keycode, 0);
 	return (0);
 }
