@@ -1,0 +1,11 @@
+NO ./resource/wall64.png
+SO ./resource/greystone.png
+WE ./resource/lava.png
+EA ./resource/brick.png
+
+F 190,178,123
+C 135,206,235
+
+111
+1N1
+111
