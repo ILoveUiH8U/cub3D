@@ -14,10 +14,7 @@
 
 static void	load_texture(void *mlx, char *path, t_img *img)
 {
-	int	width;
-	int	height;
-
-	img->img = mlx_xpm_file_to_image(mlx, path, &width, &height);
+	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
 	if (!img->img)
 		error_exit("Failed to load texture");
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len,
