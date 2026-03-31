@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 		return (1);
 	init_player(&game);
 	init_mlx(&game);
+	load_textures(&game);
 	game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bpp,
 			&game.img.line_len, &game.img.endian);

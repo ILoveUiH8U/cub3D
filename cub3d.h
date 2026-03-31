@@ -126,6 +126,7 @@ int key_press(int keycode, void *param);
 int key_release(int keycode, void *param);
 int close_window(void *param);
 void init_mlx(t_game *g);
+void load_textures(t_game *game);
 int	render_frame(void *param);
 void	cast_rays(t_game *game);
 void	update_player(t_game *g);

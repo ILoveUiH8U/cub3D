@@ -7,7 +7,7 @@ INCLUDES = -I. -Iminilibx-linux -Ilibft
 LIBFT = libft/libft.a
 MLX = minilibx-linux/libmlx.a
 
-SRC = main.c fakeparser1.c fakeparser2.c errors.c utils.c raycasting.c hooks.c mlx_init.c draw.c render.c player_init.c
+SRC = main.c fakeparser1.c fakeparser2.c errors.c utils.c raycasting.c hooks.c mlx_init.c draw.c render.c player_init.c textures.c
 OBJ = $(SRC:.c=.o)
 
 LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
