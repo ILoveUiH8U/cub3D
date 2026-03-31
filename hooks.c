@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/31 22:06:55 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/31 22:12:27 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	move_player(t_game *g, double dx, double dy)
 		g->pos_x = nx;
 	if (!is_wall(g, g->pos_x, ny))
 		g->pos_y = ny;
+}
+
+void	rotate_player(t_game *g, double angle)
+{
+	double	old_dir_x;
+	double	old_povx;
+
+	old_dir_x = g->dir_x;
+	g->dir_x = g->dir_x * cos(angle) - g->dir_y * sin(angle);
+	g->dir_y = old_dir_x * sin(angle) + g->dir_y * cos(angle);
+	old_povx = g->povx;
+	g->povx = g->povx * cos(angle) - g->povy * sin(angle);
+	g->povy = old_povx * sin(angle) + g->povy * cos(angle);
 }
 
 static void	set_key(t_game *g, int keycode, int value)
