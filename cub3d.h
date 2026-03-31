@@ -30,6 +30,8 @@
 # define MASK_KEY_PRESS 1L
 # define MASK_KEY_RELEASE 2L
 # define MASK_DESTROY 0L
+# define MOVE_SPEED 0.04
+# define ROT_SPEED 0.03
 
 typedef struct s_cfg
 {
@@ -88,6 +90,12 @@ typedef struct s_game
 {
 	t_cfg	cfg;
 	t_map	map;
+	int		k_w;
+	int		k_a;
+	int		k_s;
+	int		k_d;
+	int		k_left;
+	int		k_right;
 	double	pos_x;
 	double	pos_y;
 	void *mlx;
@@ -105,10 +113,12 @@ void error_exit(char *msg);
 void free_map(char **map);
 int get_width(char *row);
 int key_press(int keycode, void *param);
+int key_release(int keycode, void *param);
 int close_window(void *param);
 void init_mlx(t_game *g);
 int	render_frame(void *param);
 void	cast_rays(t_game *game);
+void	update_player(t_game *g);
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_vertical_line(t_game *g, int x, int start, int end, int color);
 int		parse_cub_file(const char *path, t_game *game);
