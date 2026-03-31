@@ -6,11 +6,23 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/31 21:14:22 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/31 21:31:44 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	is_wall(t_game *g, double x, double y)
+{
+	int	mx;
+	int	my;
+
+	mx = (int)x;
+	my = (int)y;
+	if (mx < 0 || my < 0 || my >= g->map.height || mx >= g->map.width)
+		return (1);
+	return (g->map.grid[my][mx] == '1');
+}
 
 static void	set_key(t_game *g, int keycode, int value)
 {
