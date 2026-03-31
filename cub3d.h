@@ -94,6 +94,7 @@ typedef struct s_ray
 	int		sx;
 	int		sy;
 	int		side;
+	t_img	*tex;
 	t_rval	v;
 }	t_ray;
 

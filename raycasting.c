@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 18:00:06 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/30 21:11:22 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/01 00:15:50 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,24 @@ static void	get_wall_dist(t_ray *ray)
 		ray->v.dist = ray->v.sdy - ray->v.ddy;
 }
 
+static void	set_wall_texture(t_game *game, t_ray *ray)
+{
+	if (ray->side == 0)
+	{
+		if (ray->v.dir_x > 0)
+			ray->tex = &game->tex.we;
+		else
+			ray->tex = &game->tex.ea;
+	}
+	else
+	{
+		if (ray->v.dir_y > 0)
+			ray->tex = &game->tex.no;
+		else
+			ray->tex = &game->tex.so;
+	}
+}
+
 static void	draw_wall(t_game *game, t_ray *ray)
 {
 	int	h;
@@ -103,10 +121,8 @@ static void	draw_wall(t_game *game, t_ray *ray)
 		start = 0;
 	if (end >= HEIGHT)
 		end = HEIGHT - 1;
-	if (ray->side == 0)
-		color = 0x00CCFF;
-	else
-		color = 0x0077AA;
+	set_wall_texture(game, ray);
+	color = *(unsigned int *)ray->tex->addr;
 	draw_vertical_line(game, ray->x, start, end, color);
 }
 
