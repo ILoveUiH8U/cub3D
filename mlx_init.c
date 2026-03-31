@@ -22,6 +22,7 @@ void init_mlx(t_game *g)
     if (!g->win)
 	    error_exit("mlx_new_window failed");
     mlx_hook(g->win, EV_KEY_PRESS, MASK_KEY_PRESS, key_press, g);
+    mlx_hook(g->win, EV_KEY_RELEASE, MASK_KEY_RELEASE, key_release, g);
     mlx_hook(g->win, EV_DESTROY, 0, close_window, g);
 
 }

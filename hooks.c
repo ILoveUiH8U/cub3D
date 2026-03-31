@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	is_wall(t_game *g, double x, double y)
+static int	is_wall(t_game *g, double x, double y)
 {
 	int	mx;
 	int	my;
@@ -24,7 +24,7 @@ int	is_wall(t_game *g, double x, double y)
 	return (g->map.grid[my][mx] == '1');
 }
 
-void	move_player(t_game *g, double dx, double dy)
+static void	move_player(t_game *g, double dx, double dy)
 {
 	double	nx;
 	double	ny;
@@ -37,7 +37,7 @@ void	move_player(t_game *g, double dx, double dy)
 		g->pos_y = ny;
 }
 
-void	rotate_player(t_game *g, double angle)
+static void	rotate_player(t_game *g, double angle)
 {
 	double	old_dir_x;
 	double	old_povx;

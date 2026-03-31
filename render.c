@@ -19,6 +19,7 @@ int	render_frame(void *param)
 	int		y;
 
 	g = (t_game *)param;
+	update_player(g);
 	y = 0;
 	while (y < HEIGHT / 2)
 	{
