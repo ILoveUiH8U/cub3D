@@ -54,6 +54,7 @@ typedef struct s_map
 	int		player_y;
 	char	player_dir;
 }t_map;
+
 typedef struct s_img
 {
 	void *img;
@@ -62,6 +63,14 @@ typedef struct s_img
 	int line_len;
 	int endian;
 } t_img;
+
+typedef struct s_tex
+{
+	t_img	no;
+	t_img	so;
+	t_img	we;
+	t_img	ea;
+}	t_tex;
 
 typedef struct s_rval
 {
@@ -104,6 +113,7 @@ typedef struct s_game
 	double	dir_y;
 	double	povx;
 	double	povy;
+	t_tex	tex;
 	t_img img;
 }t_game;
 
