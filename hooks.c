@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/31 22:12:27 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/03/31 22:24:28 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@ static void	set_key(t_game *g, int keycode, int value)
 		g->k_left = value;
 	else if (keycode == KEY_RIGHT)
 		g->k_right = value;
+}
+
+void	update_player(t_game *g)
+{
+	if (g->k_w)
+		move_player(g, g->dir_x * MOVE_SPEED, g->dir_y * MOVE_SPEED);
+	if (g->k_s)
+		move_player(g, -g->dir_x * MOVE_SPEED, -g->dir_y * MOVE_SPEED);
+	if (g->k_a)
+		move_player(g, g->dir_y * MOVE_SPEED, -g->dir_x * MOVE_SPEED);
+	if (g->k_d)
+		move_player(g, -g->dir_y * MOVE_SPEED, g->dir_x * MOVE_SPEED);
+	if (g->k_left)
+		rotate_player(g, -ROT_SPEED);
+	if (g->k_right)
+		rotate_player(g, ROT_SPEED);
 }
 
 int	close_window(void *param)
