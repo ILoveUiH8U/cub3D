@@ -1,7 +1,7 @@
-NO ./resource/wall64.png
-SO ./resource/flippedwall64.png
-WE ./resource/wall64.png
-EA ./resource/flippedwall64.png
+NO ./textures/greystone.xpm
+SO ./textures/bluestone.xpm
+WE ./textures/purplestone.xpm
+EA ./textures/redbrick.xpm
 
 F 194,178,128
 C 135,206,235
