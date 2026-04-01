@@ -1,0 +1,16 @@
+NO textures/greystone.xpm
+SO textures/bluestone.xpm
+WE textures/purplestone.xpm
+EA textures/redbrick.xpm
+
+F 46,46,46
+C 74,98,116
+
+111111111111
+100010000001
+100001100001
+100000000001
+1000E0100001
+100010000001
+100001001001
+111111111111
