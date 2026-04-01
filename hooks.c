@@ -87,8 +87,9 @@ int	close_window(void *param)
 	t_game	*g;
 
 	g = (t_game *)param;
-	(void)g;
+	free_game(g);
 	exit(0);
+	return (0);
 }
 
 int	key_press(int keycode, void *param)

@@ -44,6 +44,19 @@ static void	free_grid_rows(char **grid, int rows)
 	free(grid);
 }
 
+static void	destroy_img(void *mlx, t_img *img)
+{
+	if (mlx && img->img)
+		mlx_destroy_image(mlx, img->img);
+	img->img = NULL;
+	img->addr = NULL;
+	img->bpp = 0;
+	img->line_len = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
+}
+
 void	free_game(t_game *game)
 {
 	int	i;
@@ -72,6 +85,20 @@ void	free_game(t_game *game)
 	game->map.player_x = -1;
 	game->map.player_y = -1;
 	game->map.player_dir = 0;
+	destroy_img(game->mlx, &game->tex.no);
+	destroy_img(game->mlx, &game->tex.so);
+	destroy_img(game->mlx, &game->tex.we);
+	destroy_img(game->mlx, &game->tex.ea);
+	destroy_img(game->mlx, &game->img);
+	if (game->mlx && game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	game->win = NULL;
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	game->mlx = NULL;
 }
 
 static int	count_map_rows(char **lines, int start, int count)
