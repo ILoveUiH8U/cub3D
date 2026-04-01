@@ -134,7 +134,7 @@ int	render_frame(void *param);
 void	cast_rays(t_game *game);
 void	update_player(t_game *g);
 void put_pixel(t_img *img, int x, int y, int color);
-void draw_vertical_line(t_game *g, int x, int start, int end, int color);
+void draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
