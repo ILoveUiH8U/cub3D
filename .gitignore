@@ -1,2 +1,8 @@
 *.o
 *.o
+cub3D
+mandatory/cub3D
+bonus/cub3D
+libft/libft.a
+minilibx-linux/libmlx.a
+minilibx-linux/libmlx_Linux.a
