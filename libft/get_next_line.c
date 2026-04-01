@@ -68,6 +68,23 @@ static char	*ft_get_my_line(char *rest_of_read)
 	return (line);
 }
 
+static int	ft_read_and_append(int fd, char *buffer, char **rest_of_read)
+{
+	char	*tmp;
+	int		bytes_read;
+
+	bytes_read = read(fd, buffer, BUFFER_SIZE);
+	if (bytes_read < 0)
+		return (free(*rest_of_read), -1);
+	buffer[bytes_read] = '\0';
+	tmp = *rest_of_read;
+	*rest_of_read = ft_strjoin(*rest_of_read, buffer);
+	free(tmp);
+	if (!*rest_of_read)
+		return (-1);
+	return (bytes_read);
+}
+
 static char	*ft_read_file(int fd, char *rest_of_read)
 {
 	char	*buffer;
@@ -75,21 +92,13 @@ static char	*ft_read_file(int fd, char *rest_of_read)
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
-	{
 		return (NULL);
-	}
 	bytes_read = 1;
 	while ((!rest_of_read || !ft_strchr(rest_of_read, '\n')) && bytes_read > 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		bytes_read = ft_read_and_append(fd, buffer, &rest_of_read);
 		if (bytes_read < 0)
-		{
-			free(buffer);
-			free(rest_of_read);
-			return (NULL);
-		}
-		buffer[bytes_read] = '\0';
-		rest_of_read = ft_strjoin(rest_of_read, buffer);
+			return (free(buffer), NULL);
 	}
 	free(buffer);
 	return (rest_of_read);
