@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/04/02 15:34:57 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 19:15:15 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	move_player(t_game *g, double dx, double dy)
 		g->pos_y = ny;
 }
 
-static void	rotate_player(t_game *g, double angle)
+void	rotate_view(t_game *g, double angle)
 {
 	double	old_dir_x;
 	double	old_povx;
@@ -77,9 +77,9 @@ void	update_player(t_game *g)
 	if (g->k_d)
 		move_player(g, -g->dir_y * MOVE_SPEED, g->dir_x * MOVE_SPEED);
 	if (g->k_left)
-		rotate_player(g, -ROT_SPEED);
+		rotate_view(g, -ROT_SPEED);
 	if (g->k_right)
-		rotate_player(g, ROT_SPEED);
+		rotate_view(g, ROT_SPEED);
 }
 
 int	close_window(void *param)
