@@ -232,25 +232,24 @@ static int	validate_closed_map(t_game *game, char **err_msg)
 	return (1);
 }
 
-int	build_and_validate_map(t_game *game, char **lines, int start, int count,
-		char **err_msg)
+int	build_and_validate_map(t_game *game, t_mapbuild *build)
 {
 	int	rows;
 
-	rows = count_map_rows(lines, start, count);
+	rows = count_map_rows(build->lines, build->start, build->count);
 	if (rows < 0)
-		return (set_error(err_msg, "Empty line inside map is not allowed"));
+		return (set_error(build->err_msg, "Empty line inside map is not allowed"));
 	if (rows == 0)
-		return (set_error(err_msg, "Map section is missing"));
+		return (set_error(build->err_msg, "Map section is missing"));
 	game->map.height = rows;
-	game->map.width = map_max_width(lines, start, rows);
+	game->map.width = map_max_width(build->lines, build->start, rows);
 	if (game->map.width <= 0)
-		return (set_error(err_msg, "Map width is invalid"));
-	if (!build_grid(game, lines, start, rows))
-		return (set_error(err_msg, "Out of memory while building map"));
-	if (!validate_chars_and_player(game, err_msg))
+		return (set_error(build->err_msg, "Map width is invalid"));
+	if (!build_grid(game, build->lines, build->start, rows))
+		return (set_error(build->err_msg, "Out of memory while building map"));
+	if (!validate_chars_and_player(game, build->err_msg))
 		return (0);
-	if (!validate_closed_map(game, err_msg))
+	if (!validate_closed_map(game, build->err_msg))
 		return (0);
 	return (1);
 }

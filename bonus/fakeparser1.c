@@ -269,6 +269,7 @@ int	parse_cub_file(const char *path, t_game *game)
 	int		count;
 	int		i;
 	int		parsed;
+	t_mapbuild	build;
 
 	if (!has_cub_extension(path))
 		return (print_error_and_free(ft_strdup("Expected a .cub file")), 0);
@@ -290,7 +291,11 @@ int	parse_cub_file(const char *path, t_game *game)
 			print_error_and_free(ft_strdup("Missing required configuration")), 0);
 	while (i < count && is_empty_line(lines[i]))
 		i++;
-	if (!build_and_validate_map(game, lines, i, count, &err_msg))
+	build.lines = lines;
+	build.start = i;
+	build.count = count;
+	build.err_msg = &err_msg;
+	if (!build_and_validate_map(game, &build))
 		return (free_lines(lines, count), free_game(game),
 			print_error_and_free(err_msg), 0);
 	free_lines(lines, count);

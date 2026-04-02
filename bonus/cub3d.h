@@ -69,6 +69,14 @@ typedef struct s_map
 	char	player_dir;
 }t_map;
 
+typedef struct s_mapbuild
+{
+	char	**lines;
+	int		start;
+	int		count;
+	char	**err_msg;
+}	t_mapbuild;
+
 typedef struct s_img
 {
 	void *img;
@@ -164,8 +172,7 @@ void	draw_minimap(t_game *game);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
-int		build_and_validate_map(t_game *game, char **lines, int start, int count,
-			char **err_msg);
+int		build_and_validate_map(t_game *game, t_mapbuild *build);
 void	init_player(t_game *game);
 
 #endif
