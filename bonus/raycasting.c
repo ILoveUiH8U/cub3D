@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 18:00:06 by mnajem            #+#    #+#             */
-/*   Updated: 2026/04/02 15:36:23 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 21:02:37 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ static void	cast_a_ray(t_game *game, int x)
 	init_step_and_side(game, &ray);
 	run_dda(game, &ray);
 	get_wall_dist(&ray);
+	game->zbuf[x] = ray.v.dist;
 	draw_wall(game, &ray);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 22:08:57 by mnajem            #+#    #+#             */
-/*   Updated: 2026/04/01 00:06:46 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 21:02:55 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	load_textures(t_game *game)
 	load_texture(game, game->cfg.we_path, &game->tex.we);
 	load_texture(game, game->cfg.ea_path, &game->tex.ea);
 	load_texture(game, "assets/textures/door.xpm", &game->tex.door);
+	load_texture(game, "assets/sprites/e1f874c50848f2f3cc729c11c1490830-removebg-preview.xpm",
+		&game->tex.sprite);
 }

@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 13:35:30 by mnajem            #+#    #+#             */
-/*   Updated: 2026/04/02 15:14:05 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 21:02:25 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	get_tile_color(t_minidata *mm, t_minipos map)
 	tile = mm->game->map.grid[map.y][map.x];
 	if (tile == '1' || tile == 'D')
 		return (MM_WALL_COLOR);
-	if (tile == '0' || tile == 'N' || tile == 'S'
+	if (tile == '0' || tile == 'K' || tile == 'N' || tile == 'S'
 		|| tile == 'E' || tile == 'W')
 		return (MM_FLOOR_COLOR);
 	return (-1);

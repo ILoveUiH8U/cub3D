@@ -28,7 +28,8 @@ static int	is_player(char c)
 
 static int	is_allowed_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == 'D' || c == ' ' || is_player(c));
+	return (c == '0' || c == '1' || c == 'D' || c == 'K'
+		|| c == ' ' || is_player(c));
 }
 
 static void	free_grid_rows(char **grid, int rows)
@@ -97,6 +98,9 @@ void	free_game(t_game *game)
 		free_int_rows(game->map.door_open, game->map.height);
 	game->map.grid = NULL;
 	game->map.door_open = NULL;
+	free(game->sprites);
+	game->sprites = NULL;
+	game->map.sprite_count = 0;
 	game->map.height = 0;
 	game->map.width = 0;
 	game->map.player_x = -1;
@@ -107,6 +111,7 @@ void	free_game(t_game *game)
 	destroy_img(game->mlx, &game->tex.we);
 	destroy_img(game->mlx, &game->tex.ea);
 	destroy_img(game->mlx, &game->tex.door);
+	destroy_img(game->mlx, &game->tex.sprite);
 	destroy_img(game->mlx, &game->img);
 	if (game->mlx && game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -220,8 +225,10 @@ static int	validate_chars_and_player(t_game *game, char **err_msg)
 	int	x;
 	int	y;
 	int	player_count;
+	int	sprite_count;
 
 	player_count = 0;
+	sprite_count = 0;
 	y = 0;
 	while (y < game->map.height)
 	{
@@ -237,10 +244,13 @@ static int	validate_chars_and_player(t_game *game, char **err_msg)
 				game->map.player_y = y;
 				game->map.player_dir = game->map.grid[y][x];
 			}
+			if (game->map.grid[y][x] == 'K')
+				sprite_count++;
 			x++;
 		}
 		y++;
 	}
+	game->map.sprite_count = sprite_count;
 	if (player_count != 1)
 		return (set_error(err_msg, "Map must contain exactly one player"));
 	return (1);
@@ -248,7 +258,39 @@ static int	validate_chars_and_player(t_game *game, char **err_msg)
 
 static int	is_walkable(char c)
 {
-	return (c == '0' || c == 'D' || is_player(c));
+	return (c == '0' || c == 'D' || c == 'K' || is_player(c));
+}
+
+static int	build_sprites(t_game *game)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	if (game->map.sprite_count == 0)
+		return (1);
+	game->sprites = malloc(sizeof(t_sprite) * game->map.sprite_count);
+	if (!game->sprites)
+		return (0);
+	i = 0;
+	y = 0;
+	while (y < game->map.height)
+	{
+		x = 0;
+		while (x < game->map.width)
+		{
+			if (game->map.grid[y][x] == 'K')
+			{
+				game->sprites[i].x = x + 0.5;
+				game->sprites[i].y = y + 0.5;
+				game->sprites[i].dist = 0.0;
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+	return (1);
 }
 
 static int	is_open_around(t_game *game, int x, int y)
@@ -300,6 +342,8 @@ int	build_and_validate_map(t_game *game, t_mapbuild *build)
 		return (set_error(build->err_msg, "Out of memory while building map"));
 	if (!validate_chars_and_player(game, build->err_msg))
 		return (0);
+	if (!build_sprites(game))
+		return (set_error(build->err_msg, "Out of memory while building map"));
 	if (!validate_closed_map(game, build->err_msg))
 		return (0);
 	return (1);
