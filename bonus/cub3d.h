@@ -134,7 +134,17 @@ typedef struct s_game
 	t_img img;
 }t_game;
 
+typedef struct s_minipos
+{
+	int	x;
+	int	y;
+}	t_minipos;
 
+typedef struct s_minidata
+{
+	t_game		*game;
+	t_minipos	center;
+}	t_minidata;
 
 void error_exit(char *msg);
 void	cleanup_and_exit(t_game *game, char *msg);
