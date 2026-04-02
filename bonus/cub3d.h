@@ -67,6 +67,7 @@ typedef struct s_map
 {
 	char	**grid;
 	int		**door_open;
+	int		sprite_count;
 	int		height;
 	int		width;
 	int		player_x;
@@ -100,7 +101,15 @@ typedef struct s_tex
 	t_img	we;
 	t_img	ea;
 	t_img	door;
+	t_img	sprite;
 }	t_tex;
+
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	double	dist;
+}	t_sprite;
 
 typedef struct s_rval
 {
@@ -144,9 +153,33 @@ typedef struct s_game
 	double	dir_y;
 	double	povx;
 	double	povy;
+	int		frame;
+	double	zbuf[WIDTH];
+	t_sprite	*sprites;
 	t_tex	tex;
 	t_img img;
 }t_game;
+
+typedef struct s_spritedraw
+{
+	double	spx;
+	double	spy;
+	double	inv;
+	double	transx;
+	double	transy;
+	int		bob;
+	int		sph;
+	int		spw;
+	int		spx0;
+	int		spx1;
+	int		spy0;
+	int		spy1;
+	int		x;
+	int		y;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_spritedraw;
 
 typedef struct s_minipos
 {
@@ -172,6 +205,7 @@ void	init_mouse(t_game *g);
 void load_textures(t_game *game);
 int	render_frame(void *param);
 void	cast_rays(t_game *game);
+void	render_sprites(t_game *game);
 void	update_player(t_game *g);
 int		mouse_move_hook(int x, int y, void *param);
 void	rotate_view(t_game *g, double angle);
