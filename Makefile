@@ -1,36 +1,24 @@
 NAME = cub3D
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -I. -Iminilibx-linux -Ilibft
+all: mandatory
 
-LIBFT = libft/libft.a
-MLX = minilibx-linux/libmlx.a
+mandatory:
+	$(MAKE) -C mandatory
 
-SRC = main.c fakeparser1.c fakeparser2.c errors.c utils.c raycasting.c hooks.c mlx_init.c draw.c render.c player_init.c textures.c
-OBJ = $(SRC:.c=.o)
-
-LDFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm -lz
-
-all: $(NAME)
-
-$(LIBFT):
-	$(MAKE) -C libft
-
-$(NAME): $(OBJ) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LDFLAGS) -o $(NAME)
-
-%.o: %.c cub3d.h
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+bonus:
+	$(MAKE) -C bonus
 
 clean:
+	$(MAKE) clean -C mandatory
+	$(MAKE) clean -C bonus
 	$(MAKE) clean -C libft
-	rm -f $(OBJ)
 
-fclean: clean
+fclean:
+	$(MAKE) fclean -C mandatory
+	$(MAKE) fclean -C bonus
 	$(MAKE) fclean -C libft
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all mandatory bonus clean fclean re
