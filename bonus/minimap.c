@@ -30,6 +30,38 @@ static void	draw_square(t_img *img, t_minipos pos, int size, int color)
 	}
 }
 
+static int	get_img_pixel(t_img *img, int x, int y)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	return (*(unsigned int *)dst);
+}
+
+static void	draw_texture_square(t_img *img, t_img *tex,
+	t_minipos pos, int size)
+{
+	int	i;
+	int	j;
+	int	tex_x;
+	int	tex_y;
+
+	j = 0;
+	while (j < size)
+	{
+		i = 0;
+		tex_y = (j * tex->height) / size;
+		while (i < size)
+		{
+			tex_x = (i * tex->width) / size;
+			put_pixel(img, pos.x + i, pos.y + j,
+				get_img_pixel(tex, tex_x, tex_y));
+			i++;
+		}
+		j++;
+	}
+}
+
 static int	get_tile_color(t_minidata *mm, t_minipos map)
 {
 	char	tile;
@@ -38,7 +70,7 @@ static int	get_tile_color(t_minidata *mm, t_minipos map)
 		|| map.x < 0 || map.x >= mm->game->map.width)
 		return (-1);
 	tile = mm->game->map.grid[map.y][map.x];
-	if (tile == '1')
+	if (tile == '1' || tile == 'D')
 		return (MM_WALL_COLOR);
 	if (tile == '0' || tile == 'N' || tile == 'S'
 		|| tile == 'E' || tile == 'W')
@@ -50,12 +82,23 @@ static void	draw_map_tile(t_minidata *mm, t_minipos map)
 {
 	int			color;
 	t_minipos	screen;
+	char		tile;
 
+	if (map.y < 0 || map.y >= mm->game->map.height
+		|| map.x < 0 || map.x >= mm->game->map.width)
+		return ;
+	tile = mm->game->map.grid[map.y][map.x];
+	screen.x = mm->center.x + (int)((map.x - mm->game->pos_x) * MM_TILE);
+	screen.y = mm->center.y + (int)((map.y - mm->game->pos_y) * MM_TILE);
+	if (tile == 'D')
+	{
+		draw_texture_square(&mm->game->img, &mm->game->tex.door,
+			screen, MM_TILE - 1);
+		return ;
+	}
 	color = get_tile_color(mm, map);
 	if (color == -1)
 		return ;
-	screen.x = mm->center.x + (int)((map.x - mm->game->pos_x) * MM_TILE);
-	screen.y = mm->center.y + (int)((map.y - mm->game->pos_y) * MM_TILE);
 	draw_square(&mm->game->img, screen, MM_TILE - 1, color);
 }
 
