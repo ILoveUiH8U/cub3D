@@ -27,12 +27,15 @@
 # define KEY_SPACE 32
 # define EV_KEY_PRESS 2
 # define EV_KEY_RELEASE 3
+# define EV_MOUSE_MOVE 6
 # define EV_DESTROY 17
 # define MASK_KEY_PRESS 1L
 # define MASK_KEY_RELEASE 2L
+# define MASK_MOUSE_MOVE (1L << 6)
 # define MASK_DESTROY 0L
 # define MOVE_SPEED 0.04
 # define ROT_SPEED 0.03
+# define MOUSE_SENSITIVITY 0.002
 # define MM_MARGIN 20
 # define MM_BORDER 2
 # define MM_TILE 14
@@ -164,10 +167,13 @@ int key_press(int keycode, void *param);
 int key_release(int keycode, void *param);
 int close_window(void *param);
 void init_mlx(t_game *g);
+void	init_mouse(t_game *g);
 void load_textures(t_game *game);
 int	render_frame(void *param);
 void	cast_rays(t_game *game);
 void	update_player(t_game *g);
+int		mouse_move_hook(int x, int y, void *param);
+void	rotate_view(t_game *g, double angle);
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
 void	use_door(t_game *game);
