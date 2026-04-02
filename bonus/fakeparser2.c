@@ -28,7 +28,7 @@ static int	is_player(char c)
 
 static int	is_allowed_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' || is_player(c));
+	return (c == '0' || c == '1' || c == 'D' || c == ' ' || is_player(c));
 }
 
 static void	free_grid_rows(char **grid, int rows)
@@ -89,6 +89,7 @@ void	free_game(t_game *game)
 	destroy_img(game->mlx, &game->tex.so);
 	destroy_img(game->mlx, &game->tex.we);
 	destroy_img(game->mlx, &game->tex.ea);
+	destroy_img(game->mlx, &game->tex.door);
 	destroy_img(game->mlx, &game->img);
 	if (game->mlx && game->win)
 		mlx_destroy_window(game->mlx, game->win);
@@ -199,7 +200,7 @@ static int	validate_chars_and_player(t_game *game, char **err_msg)
 
 static int	is_walkable(char c)
 {
-	return (c == '0' || is_player(c));
+	return (c == '0' || c == 'D' || is_player(c));
 }
 
 static int	is_open_around(t_game *game, int x, int y)

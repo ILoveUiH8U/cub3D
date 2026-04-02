@@ -29,4 +29,5 @@ void	load_textures(t_game *game)
 	load_texture(game, game->cfg.so_path, &game->tex.so);
 	load_texture(game, game->cfg.we_path, &game->tex.we);
 	load_texture(game, game->cfg.ea_path, &game->tex.ea);
+	load_texture(game, "assets/textures/door.xpm", &game->tex.door);
 }

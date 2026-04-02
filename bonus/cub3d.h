@@ -17,6 +17,7 @@
 # define CEIL_COLOR 0x4A6274
 # define KEY_ESC 65307
 # define KEY_W 119
+# define KEY_E 101
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
@@ -94,6 +95,7 @@ typedef struct s_tex
 	t_img	so;
 	t_img	we;
 	t_img	ea;
+	t_img	door;
 }	t_tex;
 
 typedef struct s_rval
@@ -168,6 +170,7 @@ void	cast_rays(t_game *game);
 void	update_player(t_game *g);
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
+void	use_door(t_game *game);
 void	draw_minimap(t_game *game);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);

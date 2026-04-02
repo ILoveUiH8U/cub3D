@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/29 20:13:39 by mnajem            #+#    #+#             */
-/*   Updated: 2026/03/31 22:24:28 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 15:34:57 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_wall(t_game *g, double x, double y)
 	my = (int)y;
 	if (mx < 0 || my < 0 || my >= g->map.height || mx >= g->map.width)
 		return (1);
-	return (g->map.grid[my][mx] == '1');
+	return (g->map.grid[my][mx] == '1' || g->map.grid[my][mx] == 'D');
 }
 
 static void	move_player(t_game *g, double dx, double dy)
@@ -99,6 +99,8 @@ int	key_press(int keycode, void *param)
 	g = (t_game *)param;
 	if (keycode == KEY_ESC)
 		close_window(g);
+	if (keycode == KEY_E)
+		use_door(g);
 	set_key(g, keycode, 1);
 	return (0);
 }

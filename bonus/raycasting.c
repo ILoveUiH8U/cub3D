@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 18:00:06 by mnajem            #+#    #+#             */
-/*   Updated: 2026/04/01 17:53:05 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/04/02 15:36:23 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static void	run_dda(t_game *game, t_ray *ray)
 			ray->my += ray->sy;
 			ray->side = 1;
 		}
-		if (game->map.grid[ray->my][ray->mx] == '1')
+		if (game->map.grid[ray->my][ray->mx] == '1'
+			|| game->map.grid[ray->my][ray->mx] == 'D')
 			return ;
 	}
 }
@@ -89,6 +90,11 @@ static void	get_wall_dist(t_ray *ray)
 
 static void	set_wall_texture(t_game *game, t_ray *ray)
 {
+	if (game->map.grid[ray->my][ray->mx] == 'D')
+	{
+		ray->tex = &game->tex.door;
+		return ;
+	}
 	if (ray->side == 0)
 	{
 		if (ray->v.dir_x > 0)
