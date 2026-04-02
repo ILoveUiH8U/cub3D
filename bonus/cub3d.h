@@ -32,6 +32,20 @@
 # define MASK_DESTROY 0L
 # define MOVE_SPEED 0.04
 # define ROT_SPEED 0.03
+# define MM_MARGIN 20
+# define MM_BORDER 2
+# define MM_TILE 14
+# define MM_RADIUS 5
+# define MM_SIZE ((MM_RADIUS * 2 + 1) * MM_TILE)
+# define MM_FRAME_COLOR 0x101722
+# define MM_BG_COLOR 0x1C2530
+# define MM_WALL_COLOR 0xD9D9D9
+# define MM_FLOOR_COLOR 0x800080
+# define MM_PLAYER_COLOR 0xD94F4F
+# define MM_DIR_COLOR 0xF3D36B
+
+
+
 
 typedef struct s_cfg
 {
@@ -136,6 +150,7 @@ void	cast_rays(t_game *game);
 void	update_player(t_game *g);
 void put_pixel(t_img *img, int x, int y, int color);
 void draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
+void	draw_minimap(t_game *game);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
