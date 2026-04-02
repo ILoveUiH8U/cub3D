@@ -44,6 +44,20 @@ static void	free_grid_rows(char **grid, int rows)
 	free(grid);
 }
 
+static void	free_int_rows(int **grid, int rows)
+{
+	int	i;
+
+	i = 0;
+	while (i < rows)
+	{
+		if (grid[i])
+			free(grid[i]);
+		i++;
+	}
+	free(grid);
+}
+
 static void	destroy_img(void *mlx, t_img *img)
 {
 	if (mlx && img->img)
@@ -79,7 +93,10 @@ void	free_game(t_game *game)
 		}
 		free(game->map.grid);
 	}
+	if (game->map.door_open)
+		free_int_rows(game->map.door_open, game->map.height);
 	game->map.grid = NULL;
+	game->map.door_open = NULL;
 	game->map.height = 0;
 	game->map.width = 0;
 	game->map.player_x = -1;
@@ -167,6 +184,37 @@ static int	build_grid(t_game *game, char **lines, int start, int rows)
 	return (1);
 }
 
+static int	build_doors(t_game *game)
+{
+	int	x;
+	int	y;
+
+	game->map.door_open = malloc(sizeof(int *) * game->map.height);
+	if (!game->map.door_open)
+		return (0);
+	y = 0;
+	while (y < game->map.height)
+	{
+		game->map.door_open[y] = NULL;
+		y++;
+	}
+	y = 0;
+	while (y < game->map.height)
+	{
+		game->map.door_open[y] = malloc(sizeof(int) * game->map.width);
+		if (!game->map.door_open[y])
+			return (0);
+		x = 0;
+		while (x < game->map.width)
+		{
+			game->map.door_open[y][x] = 0;
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 static int	validate_chars_and_player(t_game *game, char **err_msg)
 {
 	int	x;
@@ -247,6 +295,8 @@ int	build_and_validate_map(t_game *game, t_mapbuild *build)
 	if (game->map.width <= 0)
 		return (set_error(build->err_msg, "Map width is invalid"));
 	if (!build_grid(game, build->lines, build->start, rows))
+		return (set_error(build->err_msg, "Out of memory while building map"));
+	if (!build_doors(game))
 		return (set_error(build->err_msg, "Out of memory while building map"));
 	if (!validate_chars_and_player(game, build->err_msg))
 		return (0);

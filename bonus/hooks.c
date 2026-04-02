@@ -21,7 +21,9 @@ static int	is_wall(t_game *g, double x, double y)
 	my = (int)y;
 	if (mx < 0 || my < 0 || my >= g->map.height || mx >= g->map.width)
 		return (1);
-	return (g->map.grid[my][mx] == '1' || g->map.grid[my][mx] == 'D');
+	if (g->map.grid[my][mx] == 'D' && !g->map.door_open[my][mx])
+		return (1);
+	return (g->map.grid[my][mx] == '1');
 }
 
 static void	move_player(t_game *g, double dx, double dy)

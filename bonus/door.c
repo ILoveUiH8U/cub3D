@@ -27,5 +27,5 @@ void	use_door(t_game *game)
 	if (!is_in_map(game, door_x, door_y))
 		return ;
 	if (game->map.grid[door_y][door_x] == 'D')
-		game->map.grid[door_y][door_x] = '0';
+		game->map.door_open[door_y][door_x] = !game->map.door_open[door_y][door_x];
 }

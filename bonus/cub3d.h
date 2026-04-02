@@ -66,6 +66,7 @@ typedef struct s_cfg
 typedef struct s_map
 {
 	char	**grid;
+	int		**door_open;
 	int		height;
 	int		width;
 	int		player_x;

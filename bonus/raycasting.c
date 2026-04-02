@@ -74,8 +74,10 @@ static void	run_dda(t_game *game, t_ray *ray)
 			ray->my += ray->sy;
 			ray->side = 1;
 		}
-		if (game->map.grid[ray->my][ray->mx] == '1'
-			|| game->map.grid[ray->my][ray->mx] == 'D')
+		if (game->map.grid[ray->my][ray->mx] == '1')
+			return ;
+		if (game->map.grid[ray->my][ray->mx] == 'D'
+			&& !game->map.door_open[ray->my][ray->mx])
 			return ;
 	}
 }
@@ -90,7 +92,8 @@ static void	get_wall_dist(t_ray *ray)
 
 static void	set_wall_texture(t_game *game, t_ray *ray)
 {
-	if (game->map.grid[ray->my][ray->mx] == 'D')
+	if (game->map.grid[ray->my][ray->mx] == 'D'
+		&& !game->map.door_open[ray->my][ray->mx])
 	{
 		ray->tex = &game->tex.door;
 		return ;
