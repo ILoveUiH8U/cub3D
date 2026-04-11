@@ -75,7 +75,10 @@ static int	ft_read_and_append(int fd, char *buffer, char **rest_of_read)
 
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read < 0)
-		return (free(*rest_of_read), -1);
+	{
+		free(*rest_of_read);
+		return (-1);
+	}
 	buffer[bytes_read] = '\0';
 	tmp = *rest_of_read;
 	*rest_of_read = ft_strjoin(*rest_of_read, buffer);
@@ -98,7 +101,10 @@ static char	*ft_read_file(int fd, char *rest_of_read)
 	{
 		bytes_read = ft_read_and_append(fd, buffer, &rest_of_read);
 		if (bytes_read < 0)
-			return (free(buffer), NULL);
+		{
+			free(buffer);
+			return (NULL);
+		}
 	}
 	free(buffer);
 	return (rest_of_read);
