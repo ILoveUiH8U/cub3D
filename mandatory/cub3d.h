@@ -31,7 +31,7 @@
 # define MASK_KEY_RELEASE 2L
 # define MASK_DESTROY 0L
 # define MOVE_SPEED 0.04
-# define ROT_SPEED 0.03
+# define ROT_SPEED 0.02
 
 typedef struct s_cfg
 {

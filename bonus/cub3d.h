@@ -34,7 +34,7 @@
 # define MASK_MOUSE_MOVE (1L << 6)
 # define MASK_DESTROY 0L
 # define MOVE_SPEED 0.04
-# define ROT_SPEED 0.03
+# define ROT_SPEED 0.02
 # define MOUSE_SENSITIVITY 0.002
 # define MM_MARGIN 20
 # define MM_BORDER 2
