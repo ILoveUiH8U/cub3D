@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by mnajem and haabu-sa.*
+*This project has been created as part of the 42 curriculum by mnajem, haabu-sa.*
 
 ## Description
 
