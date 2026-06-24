@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void	draw_square(t_img *img, t_minipos pos, int size, int color)
+void	draw_square(t_img *img, t_minipos pos, int size, int color)
 {
 	int	i;
 	int	j;
@@ -30,15 +30,7 @@ static void	draw_square(t_img *img, t_minipos pos, int size, int color)
 	}
 }
 
-static int	get_img_pixel(t_img *img, int x, int y)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	return (*(unsigned int *)dst);
-}
-
-static void	draw_texture_square(t_img *img, t_img *tex,
+void	draw_texture_square(t_img *img, t_img *tex,
 	t_minipos pos, int size)
 {
 	int	i;
@@ -102,7 +94,7 @@ static void	draw_map_tile(t_minidata *mm, t_minipos map)
 	draw_square(&mm->game->img, screen, MM_TILE - 1, color);
 }
 
-static void	draw_tiles(t_minidata *mm)
+void	draw_minimap_tiles(t_minidata *mm)
 {
 	t_minipos	map;
 
@@ -117,66 +109,4 @@ static void	draw_tiles(t_minidata *mm)
 		}
 		map.y++;
 	}
-}
-
-static void	draw_player_dir(t_minidata *mm)
-{
-	t_minipos	end;
-	int			steps;
-	int			i;
-
-	end.x = mm->center.x + (int)(mm->game->dir_x * MM_TILE * 2.0);
-	end.y = mm->center.y + (int)(mm->game->dir_y * MM_TILE * 2.0);
-	steps = abs(end.x - mm->center.x);
-	if (abs(end.y - mm->center.y) > steps)
-		steps = abs(end.y - mm->center.y);
-	if (steps < 1)
-		steps = 1;
-	i = 0;
-	while (i <= steps)
-	{
-		put_pixel(&mm->game->img, mm->center.x + ((end.x - mm->center.x) * i)
-			/ steps, mm->center.y + ((end.y - mm->center.y) * i) / steps,
-			MM_DIR_COLOR);
-		i++;
-	}
-}
-
-static void	draw_player_dot(t_minidata *mm)
-{
-	int	x;
-	int	y;
-
-	y = -3;
-	while (y <= 3)
-	{
-		x = -3;
-		while (x <= 3)
-		{
-			if (x * x + y * y <= 9)
-				put_pixel(&mm->game->img, mm->center.x + x, mm->center.y + y,
-					MM_PLAYER_COLOR);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	draw_minimap(t_game *game)
-{
-	t_minidata	mm;
-	t_minipos	pos;
-
-	mm.game = game;
-	mm.center.x = MM_MARGIN + MM_BORDER + (MM_SIZE / 2);
-	mm.center.y = MM_MARGIN + MM_BORDER + (MM_SIZE / 2);
-	pos.x = MM_MARGIN;
-	pos.y = MM_MARGIN;
-	draw_square(&game->img, pos, MM_SIZE + (MM_BORDER * 2), MM_FRAME_COLOR);
-	pos.x = MM_MARGIN + MM_BORDER;
-	pos.y = MM_MARGIN + MM_BORDER;
-	draw_square(&game->img, pos, MM_SIZE, MM_BG_COLOR);
-	draw_tiles(&mm);
-	draw_player_dir(&mm);
-	draw_player_dot(&mm);
 }

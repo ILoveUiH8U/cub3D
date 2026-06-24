@@ -87,8 +87,11 @@ int	p_save_texture(char **dst, char *value, char **err)
 		return (p_set_error(err, "Out of memory while storing texture path"));
 	ft_memcpy(path, value, end);
 	path[end] = '\0';
-	if (access(path, R_OK) != 0)
-		return (free(path), p_set_error(err, "Texture file not readable"));
+	if (!p_readable_file(path))
+	{
+		free(path);
+		return (p_set_error(err, "Texture file not readable"));
+	}
 	*dst = path;
 	return (1);
 }

@@ -45,8 +45,8 @@
 # define MASK_KEY_RELEASE 2L
 # define MASK_MOUSE_MOVE 64
 # define MASK_DESTROY 0L
-# define MOVE_SPEED 0.04
-# define ROT_SPEED 0.02
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.025
 # define MOUSE_SENSITIVITY 0.002
 # define MM_MARGIN 20
 # define MM_BORDER 2
@@ -144,6 +144,13 @@ typedef struct s_ray
 	t_rval	v;
 }	t_ray;
 
+typedef struct s_column
+{
+	int	start;
+	int	end;
+	int	tex_x;
+}	t_column;
+
 typedef struct s_game
 {
 	t_cfg		cfg;
@@ -216,8 +223,19 @@ int		render_frame(void *param);
 void	cast_rays(t_game *game);
 void	render_sprites(t_game *game);
 void	update_player(t_game *g);
-int		mouse_move_hook(int x, int y, void *param);
+void	paint_minimap_frame(t_game *game, t_minidata *mm);
+void	draw_minimap_tiles(t_minidata *mm);
+void	draw_minimap_player(t_minidata *mm);
+void	draw_square(t_img *img, t_minipos pos, int size, int color);
+void	draw_texture_square(t_img *img, t_img *tex, t_minipos pos, int size);
+int		get_img_pixel(t_img *img, int x, int y);
 void	rotate_view(t_game *g, double angle);
+void	init_ray(t_game *game, t_ray *ray, int x);
+void	init_dda(t_game *game, t_ray *ray);
+void	run_dda(t_game *game, t_ray *ray);
+void	draw_ray(t_game *game, t_ray *ray);
+int		mouse_move_hook(int x, int y, void *param);
+void	sort_sprites(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
 void	draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
 void	use_door(t_game *game);
@@ -231,6 +249,7 @@ int		p_set_error(char **err, char *msg);
 int		p_has_cub(char *path);
 void	p_free_lines(char **lines, int count);
 int		p_read_file(char *path, t_scene *scene);
+int		p_readable_file(char *path);
 int		p_read_config(t_game *game, t_scene *scene);
 int		p_build_map(t_game *game, t_scene *scene);
 int		p_validate_map(t_game *game, char **err);
@@ -242,5 +261,6 @@ int		p_save_texture(char **dst, char *value, char **err);
 int		p_save_rgb(char *value, int *dst, int *flag, char **err);
 void	p_skip_space(char *line, int *i);
 void	p_free_int_grid(int **grid, int rows);
+int		abs_int(int value);
 
 #endif

@@ -49,12 +49,18 @@ int	parse_cub_file(const char *path, t_game *game)
 	char	*err;
 
 	if (!p_has_cub((char *)path))
-		return (p_error(ft_strdup("Expected a .cub file")), 0);
+	{
+		p_error(ft_strdup("Expected a .cub file"));
+		return (0);
+	}
 	err = NULL;
 	ft_memset(&scene, 0, sizeof(scene));
 	scene.err = &err;
 	if (!p_read_file((char *)path, &scene))
-		return (p_error(err), 0);
+	{
+		p_error(err);
+		return (0);
+	}
 	if (!p_read_config(game, &scene))
 		return (p_die(game, &scene, err));
 	if (!p_build_map(game, &scene))

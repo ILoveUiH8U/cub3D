@@ -12,15 +12,14 @@
 
 #include "cub3d.h"
 
-void put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
-    char *dst;
+	char	*dst;
 
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-	    return ;
-    dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    *(unsigned int *)dst = color;
-
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)dst = color;
 }
 
 static int	get_texture_pixel(t_img *img, int x, int y)
@@ -52,8 +51,7 @@ static int	get_tex_x(t_game *g, t_ray *ray)
 	return (tex_x);
 }
 
-static void	draw_texture_pixels(t_game *g, t_ray *ray, int start, int end,
-		int tex_x)
+static void	draw_texture_pixels(t_game *g, t_ray *ray, t_column col)
 {
 	int		y;
 	int		line_h;
@@ -63,9 +61,9 @@ static void	draw_texture_pixels(t_game *g, t_ray *ray, int start, int end,
 
 	line_h = (int)(HEIGHT / ray->v.dist);
 	step = (double)ray->tex->height / line_h;
-	tex_pos = (start - HEIGHT / 2 + line_h / 2) * step;
-	y = start;
-	while (y <= end)
+	tex_pos = (col.start - HEIGHT / 2 + line_h / 2) * step;
+	y = col.start;
+	while (y <= col.end)
 	{
 		tex_y = (int)tex_pos;
 		if (tex_y < 0)
@@ -73,16 +71,18 @@ static void	draw_texture_pixels(t_game *g, t_ray *ray, int start, int end,
 		if (tex_y >= ray->tex->height)
 			tex_y = ray->tex->height - 1;
 		put_pixel(&g->img, ray->x, y,
-		get_texture_pixel(ray->tex, tex_x, tex_y));
+			get_texture_pixel(ray->tex, col.tex_x, tex_y));
 		tex_pos += step;
 		y++;
 	}
 }
 
-void draw_vertical_line(t_game *g, t_ray *ray, int start, int end)
+void	draw_vertical_line(t_game *g, t_ray *ray, int start, int end)
 {
-	int	tex_x;
+	t_column	col;
 
-	tex_x = get_tex_x(g, ray);
-	draw_texture_pixels(g, ray, start, end, tex_x);
+	col.start = start;
+	col.end = end;
+	col.tex_x = get_tex_x(g, ray);
+	draw_texture_pixels(g, ray, col);
 }

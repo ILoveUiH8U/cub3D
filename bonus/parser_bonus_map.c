@@ -52,7 +52,11 @@ int	p_build_doors(t_game *game)
 	while (y < game->map.height)
 	{
 		if (!p_build_door_row(game, y))
-			return (p_free_int_grid(game->map.door_open, game->map.height), 0);
+		{
+			p_free_int_grid(game->map.door_open, game->map.height);
+			game->map.door_open = NULL;
+			return (0);
+		}
 		y++;
 	}
 	return (1);

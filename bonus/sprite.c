@@ -12,38 +12,6 @@
 
 #include "cub3d.h"
 
-static int	get_img_pixel(t_img *img, int x, int y)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	return (*(unsigned int *)dst);
-}
-
-static void	sort_sprites(t_game *game)
-{
-	t_sprite	tmp;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < game->map.sprite_count - 1)
-	{
-		j = 0;
-		while (j < game->map.sprite_count - i - 1)
-		{
-			if (game->sprites[j].dist < game->sprites[j + 1].dist)
-			{
-				tmp = game->sprites[j];
-				game->sprites[j] = game->sprites[j + 1];
-				game->sprites[j + 1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
 static void	init_sprite_draw(t_game *game, int i, t_spritedraw *sd)
 {
 	sd->spx = game->sprites[i].x - game->pos_x;
@@ -52,8 +20,8 @@ static void	init_sprite_draw(t_game *game, int i, t_spritedraw *sd)
 	sd->transx = sd->inv * (game->dir_y * sd->spx - game->dir_x * sd->spy);
 	sd->transy = sd->inv * (-game->povy * sd->spx + game->povx * sd->spy);
 	sd->bob = (int)(sin((game->frame + (i * 20)) * 0.08) * 12.0);
-	sd->sph = abs((int)(HEIGHT / sd->transy));
-	sd->spw = abs((int)(HEIGHT / sd->transy));
+	sd->sph = abs_int((int)(HEIGHT / sd->transy));
+	sd->spw = abs_int((int)(HEIGHT / sd->transy));
 	sd->spx0 = -sd->spw / 2 + (int)((WIDTH / 2) * (1 + sd->transx
 				/ sd->transy));
 	sd->spx1 = sd->spw / 2 + (int)((WIDTH / 2) * (1 + sd->transx
@@ -91,7 +59,8 @@ static void	draw_sprite(t_game *game, int i)
 			sd.y = sd.spy0;
 			while (sd.y <= sd.spy1)
 			{
-				sd.tex_y = ((sd.y - sd.spy0) * game->tex.sprite.height) / sd.sph;
+				sd.tex_y = ((sd.y - sd.spy0) * game->tex.sprite.height)
+					/ sd.sph;
 				sd.color = get_img_pixel(&game->tex.sprite, sd.tex_x, sd.tex_y);
 				if ((sd.color & 0xFF000000) == 0)
 					put_pixel(&game->img, sd.x, sd.y, sd.color);

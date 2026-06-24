@@ -14,7 +14,8 @@
 
 static void	load_texture(t_game *game, char *path, t_img *img)
 {
-	img->img = mlx_xpm_file_to_image(game->mlx, path, &img->width, &img->height);
+	img->img = mlx_xpm_file_to_image(game->mlx, path, &img->width,
+			&img->height);
 	if (!img->img)
 		cleanup_and_exit(game, "Failed to load texture");
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_len,
