@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/24 00:00:00 by mnajem            #+#    #+#             */
+/*   Updated: 2026/06/24 00:00:00 by mnajem           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -43,7 +55,7 @@ typedef struct s_cfg
 	int		ceil_color;
 	int		has_floor;
 	int		has_ceil;
-}t_cfg;
+}	t_cfg;
 
 typedef struct s_map
 {
@@ -53,18 +65,26 @@ typedef struct s_map
 	int		player_x;
 	int		player_y;
 	char	player_dir;
-}t_map;
+}	t_map;
+
+typedef struct s_scene
+{
+	char	**lines;
+	int		count;
+	int		start;
+	char	**err;
+}	t_scene;
 
 typedef struct s_img
 {
-	void *img;
-	char *addr;
-	int bpp;
-	int line_len;
-	int endian;
-	int width;
-	int height;
-} t_img;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
 
 typedef struct s_tex
 {
@@ -110,37 +130,44 @@ typedef struct s_game
 	int		k_right;
 	double	pos_x;
 	double	pos_y;
-	void *mlx;
-	void *win;
+	void	*mlx;
+	void	*win;
 	double	dir_x;
 	double	dir_y;
 	double	povx;
 	double	povy;
 	t_tex	tex;
-	t_img img;
-}t_game;
+	t_img	img;
+}	t_game;
 
-
-
-void error_exit(char *msg);
+void	error_exit(char *msg);
 void	cleanup_and_exit(t_game *game, char *msg);
-void free_map(char **map);
-int get_width(char *row);
-int key_press(int keycode, void *param);
-int key_release(int keycode, void *param);
-int close_window(void *param);
-void init_mlx(t_game *g);
-void load_textures(t_game *game);
-int	render_frame(void *param);
+void	free_map(char **map);
+int		get_width(char *row);
+int		key_press(int keycode, void *param);
+int		key_release(int keycode, void *param);
+int		close_window(void *param);
+void	init_mlx(t_game *g);
+void	load_textures(t_game *game);
+int		render_frame(void *param);
 void	cast_rays(t_game *game);
 void	update_player(t_game *g);
-void put_pixel(t_img *img, int x, int y, int color);
-void draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
-int		build_and_validate_map(t_game *game, char **lines, int start, int count,
-			char **err_msg);
 void	init_player(t_game *game);
+int		p_is_blank(char *line);
+int		p_set_error(char **err, char *msg);
+int		p_has_cub(char *path);
+void	p_free_lines(char **lines, int count);
+int		p_read_file(char *path, t_scene *scene);
+int		p_read_config(t_game *game, t_scene *scene);
+int		p_build_map(t_game *game, t_scene *scene);
+int		p_validate_map(t_game *game, char **err);
+int		p_save_texture(char **dst, char *value, char **err);
+int		p_save_rgb(char *value, int *dst, int *flag, char **err);
+void	p_skip_space(char *line, int *i);
 
 #endif
