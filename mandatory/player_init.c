@@ -12,36 +12,27 @@
 
 #include "cub3d.h"
 
+static void	set_view(t_game *game, double dx, double dy, double px)
+{
+	game->dir_x = dx;
+	game->dir_y = dy;
+	game->povx = px;
+	if (dx != 0)
+		game->povy = 0.66 * dx;
+	else
+		game->povy = 0;
+}
+
 void	init_player(t_game *game)
 {
 	game->pos_x = game->map.player_x + 0.5;
 	game->pos_y = game->map.player_y + 0.5;
 	if (game->map.player_dir == 'N')
-	{
-		game->dir_x = 0;
-		game->dir_y = -1;
-		game->povx = 0.66;
-		game->povy = 0;
-	}
+		set_view(game, 0, -1, 0.66);
 	else if (game->map.player_dir == 'S')
-	{
-		game->dir_x = 0;
-		game->dir_y = 1;
-		game->povx = -0.66;
-		game->povy = 0;
-	}
+		set_view(game, 0, 1, -0.66);
 	else if (game->map.player_dir == 'E')
-	{
-		game->dir_x = 1;
-		game->dir_y = 0;
-		game->povx = 0;
-		game->povy = 0.66;
-	}
+		set_view(game, 1, 0, 0);
 	else if (game->map.player_dir == 'W')
-	{
-		game->dir_x = -1;
-		game->dir_y = 0;
-		game->povx = 0;
-		game->povy = -0.66;
-	}
+		set_view(game, -1, 0, 0);
 }

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void init_mlx(t_game *g)
+void	init_mlx(t_game *g)
 {
 	g->mlx = mlx_init();
 	if (!g->mlx)

@@ -42,8 +42,8 @@
 # define MASK_KEY_PRESS 1L
 # define MASK_KEY_RELEASE 2L
 # define MASK_DESTROY 0L
-# define MOVE_SPEED 0.04
-# define ROT_SPEED 0.02
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.025
 
 typedef struct s_cfg
 {
@@ -118,6 +118,13 @@ typedef struct s_ray
 	t_rval	v;
 }	t_ray;
 
+typedef struct s_column
+{
+	int	start;
+	int	end;
+	int	tex_x;
+}	t_column;
+
 typedef struct s_game
 {
 	t_cfg	cfg;
@@ -152,8 +159,12 @@ void	load_textures(t_game *game);
 int		render_frame(void *param);
 void	cast_rays(t_game *game);
 void	update_player(t_game *g);
+void	rotate_player(t_game *g, double angle);
 void	put_pixel(t_img *img, int x, int y, int color);
 void	draw_vertical_line(t_game *g, t_ray *ray, int start, int end);
+void	init_ray(t_game *game, t_ray *ray, int x);
+void	init_dda(t_game *game, t_ray *ray);
+void	run_dda(t_game *game, t_ray *ray);
 int		parse_cub_file(const char *path, t_game *game);
 void	init_game(t_game *game);
 void	free_game(t_game *game);
@@ -163,6 +174,7 @@ int		p_set_error(char **err, char *msg);
 int		p_has_cub(char *path);
 void	p_free_lines(char **lines, int count);
 int		p_read_file(char *path, t_scene *scene);
+int		p_readable_file(char *path);
 int		p_read_config(t_game *game, t_scene *scene);
 int		p_build_map(t_game *game, t_scene *scene);
 int		p_validate_map(t_game *game, char **err);
