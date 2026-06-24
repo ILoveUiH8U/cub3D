@@ -7,7 +7,11 @@ INCLUDES = -I. -I.. -I../minilibx-linux -I../libft
 LIBFT = ../libft/libft.a
 MLX = ../minilibx-linux/libmlx.a
 
-SRC = main.c fakeparser1.c fakeparser2.c errors.c utils.c raycasting.c hooks.c mlx_init.c draw.c render.c player_init.c textures.c minimap.c door.c mouse.c sprite.c
+SRC = main.c parser_core.c parser_read.c parser_color.c \
+	parser_config.c parser_map_grid.c parser_map_check.c parser_bonus_map.c \
+	parser_map_closed.c parser_free.c errors.c utils.c \
+	raycasting.c hooks.c mlx_init.c draw.c render.c player_init.c textures.c \
+	minimap.c door.c mouse.c sprite.c
 OBJ = $(SRC:.c=.o)
 
 LDFLAGS = -L../minilibx-linux -lmlx -lXext -lX11 -lm -lz
