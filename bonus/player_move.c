@@ -31,12 +31,12 @@ static void	move_player(t_game *g, double dx, double dy)
 	double	nx;
 	double	ny;
 
-	nx = g->pos_x + dx;
-	ny = g->pos_y + dy;
-	if (!is_wall(g, nx, g->pos_y))
-		g->pos_x = nx;
-	if (!is_wall(g, g->pos_x, ny))
-		g->pos_y = ny;
+	nx = g->view.pos_x + dx;
+	ny = g->view.pos_y + dy;
+	if (!is_wall(g, nx, g->view.pos_y))
+		g->view.pos_x = nx;
+	if (!is_wall(g, g->view.pos_x, ny))
+		g->view.pos_y = ny;
 }
 
 void	rotate_view(t_game *g, double angle)
@@ -44,26 +44,27 @@ void	rotate_view(t_game *g, double angle)
 	double	old_dir_x;
 	double	old_povx;
 
-	old_dir_x = g->dir_x;
-	g->dir_x = g->dir_x * cos(angle) - g->dir_y * sin(angle);
-	g->dir_y = old_dir_x * sin(angle) + g->dir_y * cos(angle);
-	old_povx = g->povx;
-	g->povx = g->povx * cos(angle) - g->povy * sin(angle);
-	g->povy = old_povx * sin(angle) + g->povy * cos(angle);
+	old_dir_x = g->view.dir_x;
+	g->view.dir_x = g->view.dir_x * cos(angle) - g->view.dir_y * sin(angle);
+	g->view.dir_y = old_dir_x * sin(angle) + g->view.dir_y * cos(angle);
+	old_povx = g->view.povx;
+	g->view.povx = g->view.povx * cos(angle) - g->view.povy * sin(angle);
+	g->view.povy = old_povx * sin(angle) + g->view.povy * cos(angle);
 }
 
 void	update_player(t_game *g)
 {
-	if (g->k_w)
-		move_player(g, g->dir_x * MOVE_SPEED, g->dir_y * MOVE_SPEED);
-	if (g->k_s)
-		move_player(g, -g->dir_x * MOVE_SPEED, -g->dir_y * MOVE_SPEED);
-	if (g->k_a)
-		move_player(g, g->dir_y * MOVE_SPEED, -g->dir_x * MOVE_SPEED);
-	if (g->k_d)
-		move_player(g, -g->dir_y * MOVE_SPEED, g->dir_x * MOVE_SPEED);
-	if (g->k_left)
+	if (g->keys.w)
+		move_player(g, g->view.dir_x * MOVE_SPEED, g->view.dir_y * MOVE_SPEED);
+	if (g->keys.s)
+		move_player(g, -g->view.dir_x * MOVE_SPEED,
+			-g->view.dir_y * MOVE_SPEED);
+	if (g->keys.a)
+		move_player(g, g->view.dir_y * MOVE_SPEED, -g->view.dir_x * MOVE_SPEED);
+	if (g->keys.d)
+		move_player(g, -g->view.dir_y * MOVE_SPEED, g->view.dir_x * MOVE_SPEED);
+	if (g->keys.left)
 		rotate_view(g, -ROT_SPEED);
-	if (g->k_right)
+	if (g->keys.right)
 		rotate_view(g, ROT_SPEED);
 }

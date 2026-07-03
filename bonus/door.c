@@ -22,8 +22,8 @@ void	use_door(t_game *game)
 	int	door_x;
 	int	door_y;
 
-	door_x = (int)(game->pos_x + game->dir_x * 0.75);
-	door_y = (int)(game->pos_y + game->dir_y * 0.75);
+	door_x = (int)(game->view.pos_x + game->view.dir_x * 0.75);
+	door_y = (int)(game->view.pos_y + game->view.dir_y * 0.75);
 	if (!is_in_map(game, door_x, door_y))
 		return ;
 	if (game->map.grid[door_y][door_x] == 'D')

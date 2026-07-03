@@ -36,9 +36,9 @@ static int	get_tex_x(t_game *g, t_ray *ray)
 	int		tex_x;
 
 	if (ray->side == 0)
-		wall_x = g->pos_y + ray->v.dist * ray->v.dir_y;
+		wall_x = g->view.pos_y + ray->v.dist * ray->v.dir_y;
 	else
-		wall_x = g->pos_x + ray->v.dist * ray->v.dir_x;
+		wall_x = g->view.pos_x + ray->v.dist * ray->v.dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * ray->tex->width);
 	if ((ray->side == 0 && ray->v.dir_x > 0)

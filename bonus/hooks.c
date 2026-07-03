@@ -15,17 +15,17 @@
 static void	set_key(t_game *g, int keycode, int value)
 {
 	if (keycode == KEY_W)
-		g->k_w = value;
+		g->keys.w = value;
 	else if (keycode == KEY_A)
-		g->k_a = value;
+		g->keys.a = value;
 	else if (keycode == KEY_S)
-		g->k_s = value;
+		g->keys.s = value;
 	else if (keycode == KEY_D)
-		g->k_d = value;
+		g->keys.d = value;
 	else if (keycode == KEY_LEFT)
-		g->k_left = value;
+		g->keys.left = value;
 	else if (keycode == KEY_RIGHT)
-		g->k_right = value;
+		g->keys.right = value;
 }
 
 int	close_window(void *param)

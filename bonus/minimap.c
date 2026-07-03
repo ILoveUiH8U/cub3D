@@ -80,8 +80,8 @@ static void	draw_map_tile(t_minidata *mm, t_minipos map)
 		|| map.x < 0 || map.x >= mm->game->map.width)
 		return ;
 	tile = mm->game->map.grid[map.y][map.x];
-	screen.x = mm->center.x + (int)((map.x - mm->game->pos_x) * MM_TILE);
-	screen.y = mm->center.y + (int)((map.y - mm->game->pos_y) * MM_TILE);
+	screen.x = mm->center.x + (int)((map.x - mm->game->view.pos_x) * MM_TILE);
+	screen.y = mm->center.y + (int)((map.y - mm->game->view.pos_y) * MM_TILE);
 	if (tile == 'D')
 	{
 		draw_texture_square(&mm->game->img, &mm->game->tex.door,
@@ -98,11 +98,11 @@ void	draw_minimap_tiles(t_minidata *mm)
 {
 	t_minipos	map;
 
-	map.y = (int)mm->game->pos_y - MM_RADIUS;
-	while (map.y <= (int)mm->game->pos_y + MM_RADIUS)
+	map.y = (int)mm->game->view.pos_y - MM_RADIUS;
+	while (map.y <= (int)mm->game->view.pos_y + MM_RADIUS)
 	{
-		map.x = (int)mm->game->pos_x - MM_RADIUS;
-		while (map.x <= (int)mm->game->pos_x + MM_RADIUS)
+		map.x = (int)mm->game->view.pos_x - MM_RADIUS;
+		while (map.x <= (int)mm->game->view.pos_x + MM_RADIUS)
 		{
 			draw_map_tile(mm, map);
 			map.x++;

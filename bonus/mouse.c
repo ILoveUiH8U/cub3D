@@ -17,14 +17,7 @@ static void	center_mouse(t_game *game)
 	mlx_mouse_move(game->mlx, game->win, WIDTH / 2, HEIGHT / 2);
 }
 
-void	init_mouse(t_game *g)
-{
-	mlx_hook(g->win, EV_MOUSE_MOVE, MASK_MOUSE_MOVE, mouse_move_hook, g);
-	mlx_mouse_hide(g->mlx, g->win);
-	center_mouse(g);
-}
-
-int	mouse_move_hook(int x, int y, void *param)
+static int	mouse_move_hook(int x, int y, void *param)
 {
 	t_game	*g;
 	int		delta_x;
@@ -37,4 +30,11 @@ int	mouse_move_hook(int x, int y, void *param)
 		rotate_view(g, delta_x * MOUSE_SENSITIVITY);
 	center_mouse(g);
 	return (0);
+}
+
+void	init_mouse(t_game *g)
+{
+	mlx_hook(g->win, EV_MOUSE_MOVE, MASK_MOUSE_MOVE, mouse_move_hook, g);
+	mlx_mouse_hide(g->mlx, g->win);
+	center_mouse(g);
 }

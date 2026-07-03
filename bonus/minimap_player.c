@@ -20,8 +20,8 @@ static void	draw_player_dir(t_minidata *mm)
 	int			dy;
 	int			i;
 
-	end.x = mm->center.x + (int)(mm->game->dir_x * MM_TILE * 2.0);
-	end.y = mm->center.y + (int)(mm->game->dir_y * MM_TILE * 2.0);
+	end.x = mm->center.x + (int)(mm->game->view.dir_x * MM_TILE * 2.0);
+	end.y = mm->center.y + (int)(mm->game->view.dir_y * MM_TILE * 2.0);
 	dx = abs_int(end.x - mm->center.x);
 	dy = abs_int(end.y - mm->center.y);
 	steps = dx;
