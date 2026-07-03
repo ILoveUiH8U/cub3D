@@ -29,7 +29,6 @@ static int	p_rgb_part(char *value, int *i, int *out)
 {
 	long	n;
 
-	p_skip_space(value, i);
 	if (!ft_isdigit((unsigned char)value[*i]))
 		return (0);
 	n = 0;
@@ -40,7 +39,6 @@ static int	p_rgb_part(char *value, int *i, int *out)
 			return (0);
 		(*i)++;
 	}
-	p_skip_space(value, i);
 	*out = (int)n;
 	return (1);
 }
@@ -55,6 +53,7 @@ int	p_save_rgb(char *value, int *dst, int *flag, char **err)
 	if (*flag)
 		return (p_set_error(err, "Duplicate color identifier"));
 	i = 0;
+	p_skip_space(value, &i);
 	if (!p_rgb_part(value, &i, &r) || value[i++] != ',')
 		return (p_set_error(err, "Invalid RGB color format"));
 	if (!p_rgb_part(value, &i, &g) || value[i++] != ',')
