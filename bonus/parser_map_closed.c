@@ -30,21 +30,6 @@ static int	p_needs_wall(char c)
 	return (c != '1' && c != ' ');
 }
 
-static int	p_floating_wall(t_game *game, int x, int y)
-{
-	if (y == 0 || y == game->map.height - 1)
-		return (0);
-	if (game->map.grid[y][x] != '1')
-		return (0);
-	if (game->map.grid[y - 1][x] == ' ' && game->map.grid[y + 1][x] == ' ')
-		return (1);
-	if (x == 0 || x == game->map.width - 1)
-		return (0);
-	if (game->map.grid[y][x - 1] == ' ' && game->map.grid[y][x + 1] == ' ')
-		return (1);
-	return (0);
-}
-
 int	p_closed_map(t_game *game, char **err)
 {
 	int	x;
@@ -56,8 +41,6 @@ int	p_closed_map(t_game *game, char **err)
 		x = 0;
 		while (x < game->map.width)
 		{
-			if (p_floating_wall(game, x, y))
-				return (p_set_error(err, "Map is not closed by walls"));
 			if (p_needs_wall(game->map.grid[y][x]) && p_open(game, x, y))
 				return (p_set_error(err, "Map is not closed by walls"));
 			x++;
