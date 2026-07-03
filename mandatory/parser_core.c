@@ -35,7 +35,7 @@ static int	p_die(t_game *game, t_scene *scene, char *err)
 	return (0);
 }
 
-int	p_has_cub(char *path)
+static int	p_has_cub(char *path)
 {
 	int	len;
 

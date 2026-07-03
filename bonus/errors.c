@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	error_exit(char *msg)
+static void	error_exit(char *msg)
 {
 	printf("Error\n%s\n", msg);
 	exit(1);

@@ -12,28 +12,6 @@
 
 #include "cub3d.h"
 
-void	free_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	if (!map)
-		return ;
-	while (map[i])
-		free(map[i++]);
-	free(map);
-}
-
-int	get_width(char *row)
-{
-	int	i;
-
-	i = 0;
-	while (row[i] && row[i] != '\n')
-		i++;
-	return (i);
-}
-
 int	p_readable_file(char *path)
 {
 	int	fd;

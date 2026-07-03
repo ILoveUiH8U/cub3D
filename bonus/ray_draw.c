@@ -35,7 +35,7 @@ static void	set_wall_dist(t_ray *ray)
 		ray->v.dist = ray->v.sdy - ray->v.ddy;
 }
 
-void	draw_ray(t_game *game, t_ray *ray)
+static void	draw_ray(t_game *game, t_ray *ray)
 {
 	int	h;
 	int	start;
