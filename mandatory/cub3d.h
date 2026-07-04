@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 00:00:00 by mnajem            #+#    #+#             */
-/*   Updated: 2026/06/24 00:00:00 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/07/04 18:16:37 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # define EV_DESTROY 17
 # define MASK_KEY_PRESS 1L
 # define MASK_KEY_RELEASE 2L
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.025
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.01
 
 typedef struct s_cfg
 {

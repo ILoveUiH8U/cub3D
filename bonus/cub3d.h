@@ -6,7 +6,7 @@
 /*   By: mnajem <mnajem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/24 00:00:00 by mnajem            #+#    #+#             */
-/*   Updated: 2026/06/24 00:00:00 by mnajem           ###   ########.fr       */
+/*   Updated: 2026/07/04 18:16:00 by mnajem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define MASK_KEY_PRESS 1L
 # define MASK_KEY_RELEASE 2L
 # define MASK_MOUSE_MOVE 64
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.025
+# define MOVE_SPEED 0.02
+# define ROT_SPEED 0.01
 # define MOUSE_SENSITIVITY 0.002
 # define MM_MARGIN 20
 # define MM_BORDER 2

@@ -27,7 +27,7 @@ static void	init_sprite_draw(t_game *game, int i, t_spritedraw *sd)
 	p->inv = 1.0 / (v->povx * v->dir_y - v->dir_x * v->povy);
 	p->transx = p->inv * (v->dir_y * p->spx - v->dir_x * p->spy);
 	p->transy = p->inv * (-v->povy * p->spx + v->povx * p->spy);
-	b->bob = (int)(sin((game->frame + (i * 20)) * 0.08) * 12.0);
+	b->bob = (int)(sin((game->frame + (i * 20)) * 0.03) * 12.0);
 	b->sph = abs_int((int)(HEIGHT / p->transy));
 	b->spw = b->sph;
 	screen_x = (int)((WIDTH / 2) * (1 + p->transx / p->transy));
