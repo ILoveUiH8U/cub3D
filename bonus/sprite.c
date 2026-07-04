@@ -14,23 +14,27 @@
 
 static void	init_sprite_draw(t_game *game, int i, t_spritedraw *sd)
 {
-	sd->proj.spx = game->sprites[i].x - game->view.pos_x;
-	sd->proj.spy = game->sprites[i].y - game->view.pos_y;
-	sd->proj.inv = 1.0 / (game->view.povx * game->view.dir_y
-			- game->view.dir_x * game->view.povy);
-	sd->proj.transx = sd->proj.inv * (game->view.dir_y * sd->proj.spx
-			- game->view.dir_x * sd->proj.spy);
-	sd->proj.transy = sd->proj.inv * (-game->view.povy * sd->proj.spx
-			+ game->view.povx * sd->proj.spy);
-	sd->box.bob = (int)(sin((game->frame + (i * 20)) * 0.08) * 12.0);
-	sd->box.sph = abs_int((int)(HEIGHT / sd->proj.transy));
-	sd->box.spw = abs_int((int)(HEIGHT / sd->proj.transy));
-	sd->box.spx0 = -sd->box.spw / 2 + (int)((WIDTH / 2)
-			* (1 + sd->proj.transx / sd->proj.transy));
-	sd->box.spx1 = sd->box.spw / 2 + (int)((WIDTH / 2)
-			* (1 + sd->proj.transx / sd->proj.transy));
-	sd->box.spy0 = -sd->box.sph / 2 + HEIGHT / 2 + sd->box.bob;
-	sd->box.spy1 = sd->box.sph / 2 + HEIGHT / 2 + sd->box.bob;
+	t_sprite_proj	*p;
+	t_sprite_box	*b;
+	t_view			*v;
+	int				screen_x;
+
+	p = &sd->proj;
+	b = &sd->box;
+	v = &game->view;
+	p->spx = game->sprites[i].x - v->pos_x;
+	p->spy = game->sprites[i].y - v->pos_y;
+	p->inv = 1.0 / (v->povx * v->dir_y - v->dir_x * v->povy);
+	p->transx = p->inv * (v->dir_y * p->spx - v->dir_x * p->spy);
+	p->transy = p->inv * (-v->povy * p->spx + v->povx * p->spy);
+	b->bob = (int)(sin((game->frame + (i * 20)) * 0.08) * 12.0);
+	b->sph = abs_int((int)(HEIGHT / p->transy));
+	b->spw = b->sph;
+	screen_x = (int)((WIDTH / 2) * (1 + p->transx / p->transy));
+	b->spx0 = screen_x - b->spw / 2;
+	b->spx1 = screen_x + b->spw / 2;
+	b->spy0 = -b->sph / 2 + HEIGHT / 2 + b->bob;
+	b->spy1 = b->sph / 2 + HEIGHT / 2 + b->bob;
 }
 
 static void	clamp_sprite_draw(t_spritedraw *sd)

@@ -12,7 +12,7 @@ SRC = main.c parser_core.c parser_read.c parser_color.c \
 	parser_map_closed.c parser_free.c errors.c utils.c \
 	raycasting.c ray_step.c ray_draw.c hooks.c player_move.c mlx_init.c \
 	draw.c render.c player_init.c textures.c minimap.c \
-	minimap_player.c image_utils.c door.c mouse.c sprite.c sprite_sort.c
+	minimap_player.c door.c mouse.c sprite.c sprite_sort.c
 OBJ = $(SRC:.c=.o)
 
 LDFLAGS = -L../minilibx-linux -lmlx -lXext -lX11 -lm -lz
